@@ -4,7 +4,7 @@ import { useHealth } from "@/context/HealthContext";
 import { getAIRecommendation } from "@/utils/healthUtils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Moon, Droplets, Running, SmilePlus, Info } from "lucide-react";
+import { Sparkles, Moon, Droplets, Activity, SmilePlus, Info } from "lucide-react";
 
 const HealthRecommendation = () => {
   const { recommendations, metrics } = useHealth();
@@ -29,7 +29,7 @@ const HealthRecommendation = () => {
       case "water":
         return <Droplets className="h-4 w-4" />;
       case "exercise":
-        return <Running className="h-4 w-4" />;
+        return <Activity className="h-4 w-4" />;
       case "mood":
         return <SmilePlus className="h-4 w-4" />;
       default:

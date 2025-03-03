@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useHealth, type HealthMetric } from "@/context/HealthContext";
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 import { generateRecommendations } from "@/utils/healthUtils";
 import { toast } from "sonner";
-import { Moon, Droplets, Running, SmilePlus } from "lucide-react";
+import { Moon, Droplets, Activity, SmilePlus } from "lucide-react";
 
 const HealthForm = () => {
   const { addMetric, addRecommendation } = useHealth();
@@ -123,7 +124,7 @@ const HealthForm = () => {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <label className="text-sm font-medium flex items-center">
-              <Running className="w-4 h-4 mr-1.5 text-health-700" />
+              <Activity className="w-4 h-4 mr-1.5 text-health-700" />
               Exercise Duration
             </label>
             <span className="text-sm font-semibold bg-health-100 px-2 py-1 rounded-md">
