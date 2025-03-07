@@ -1,11 +1,13 @@
 
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Heart, Activity, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +22,10 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleGetStarted = () => {
+    navigate("/login");
+  };
+
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300 ${
@@ -28,8 +34,12 @@ const Header = () => {
     >
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Heart className="h-6 w-6 text-health-600" />
-          <span className="text-xl font-medium">HealthTrack</span>
+          <Link to="/">
+            <Heart className="h-6 w-6 text-health-600" />
+          </Link>
+          <Link to="/" className="text-xl font-medium">
+            HealthTrack
+          </Link>
         </div>
 
         {/* Desktop Navigation */}
@@ -43,7 +53,10 @@ const Header = () => {
           <a href="#recommendations" className="text-sm font-medium text-gray-600 hover:text-health-600 transition-colors">
             Recommendations
           </a>
-          <Button className="bg-health-500 hover:bg-health-600 text-white">
+          <Button 
+            className="bg-health-500 hover:bg-health-600 text-white"
+            onClick={handleGetStarted}
+          >
             <Activity className="mr-2 h-4 w-4" />
             Get Started
           </Button>
@@ -88,7 +101,10 @@ const Header = () => {
             </a>
             <Button 
               className="w-full bg-health-500 hover:bg-health-600 text-white"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                navigate("/login");
+              }}
             >
               <Activity className="mr-2 h-4 w-4" />
               Get Started
