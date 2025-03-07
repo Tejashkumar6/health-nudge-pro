@@ -6,7 +6,6 @@ import HealthDashboard from "@/components/health/HealthDashboard";
 import HealthRecommendation from "@/components/health/HealthRecommendation";
 import HealthGoals from "@/components/health/HealthGoals";
 import HealthTips from "@/components/health/HealthTips";
-import ProjectQuestionsDoc from "@/components/health/ProjectQuestionsDoc";
 import { HealthProvider } from "@/context/HealthContext";
 import { Heart, Sparkles, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -60,7 +59,6 @@ const Index = () => {
               <div className="lg:col-span-4 space-y-6">
                 <HealthForm />
                 <HealthGoals />
-                <ProjectQuestionsDoc />
               </div>
               
               <div className="lg:col-span-8 space-y-8">
