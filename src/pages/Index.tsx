@@ -4,8 +4,11 @@ import Header from "@/components/layout/Header";
 import HealthForm from "@/components/health/HealthForm";
 import HealthDashboard from "@/components/health/HealthDashboard";
 import HealthRecommendation from "@/components/health/HealthRecommendation";
+import HealthGoals from "@/components/health/HealthGoals";
+import HealthTips from "@/components/health/HealthTips";
 import { HealthProvider } from "@/context/HealthContext";
 import { Heart, Sparkles, ArrowDown } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   useEffect(() => {
@@ -34,7 +37,16 @@ const Index = () => {
               Simple, intelligent health tracking designed to help you develop better habits and improve your wellbeing with personalized AI recommendations.
             </p>
 
-            <div className="mt-12 animate-fade-in delay-2">
+            <div className="flex justify-center space-x-4 mb-12 animate-fade-in delay-1">
+              <Link to="/login" className="bg-health-600 hover:bg-health-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                Get Started
+              </Link>
+              <Link to="/profile" className="bg-white hover:bg-gray-50 text-health-600 border border-health-200 px-6 py-3 rounded-lg font-medium transition-colors">
+                Your Profile
+              </Link>
+            </div>
+
+            <div className="mt-6 animate-fade-in delay-2">
               <ArrowDown className="h-8 w-8 mx-auto text-health-500 animate-bounce" />
             </div>
           </div>
@@ -46,11 +58,15 @@ const Index = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               <div className="lg:col-span-4 space-y-6">
                 <HealthForm />
+                <HealthGoals />
               </div>
               
               <div className="lg:col-span-8 space-y-8">
                 <HealthDashboard />
-                <HealthRecommendation />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <HealthTips />
+                  <HealthRecommendation />
+                </div>
               </div>
             </div>
           </div>
