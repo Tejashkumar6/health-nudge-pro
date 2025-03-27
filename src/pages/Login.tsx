@@ -6,28 +6,54 @@ import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { LogIn, UserCircle, Mail, Lock, ArrowLeft, Heart } from "lucide-react";
 import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { signIn, signUp } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     
     // Basic validation
     if (!email || !password) {
-      toast.error("Please fill in all fields");
+      toast.error("Please fill in all required fields");
+      setIsLoading(false);
       return;
     }
     
-    // This is just a mock login/signup - in a real app you'd connect to an authentication service
-    toast.success(isSignUp ? "Account created successfully!" : "Login successful!");
-    
-    // In a real app, you would authenticate the user here
-    // For now, just redirect to the main page
-    setTimeout(() => navigate("/"), 1500);
+    if (isSignUp && !fullName) {
+      toast.error("Please provide your name");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      if (isSignUp) {
+        const { error } = await signUp(email, password, { full_name: fullName });
+        if (error) {
+          toast.error(error.message || "Failed to create account");
+        } else {
+          toast.success("Account created successfully! Please verify your email.");
+          setTimeout(() => navigate("/"), 1500);
+        }
+      } else {
+        const { error } = await signIn(email, password);
+        if (error) {
+          toast.error(error.message || "Invalid login credentials");
+        }
+      }
+    } catch (error: any) {
+      toast.error(error.message || "An error occurred");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -53,6 +79,20 @@ const Login = () => {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {isSignUp && (
+              <div className="space-y-2">
+                <div className="relative">
+                  <UserCircle className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input 
+                    type="text" 
+                    placeholder="Full Name" 
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+            )}
             <div className="space-y-2">
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -78,9 +118,19 @@ const Login = () => {
               </div>
             </div>
             
-            <Button type="submit" className="w-full bg-health-600 hover:bg-health-700">
-              <LogIn className="mr-2 h-4 w-4" />
-              {isSignUp ? "Sign Up" : "Sign In"}
+            <Button 
+              type="submit" 
+              className="w-full bg-health-600 hover:bg-health-700"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                "Processing..."
+              ) : (
+                <>
+                  <LogIn className="mr-2 h-4 w-4" />
+                  {isSignUp ? "Sign Up" : "Sign In"}
+                </>
+              )}
             </Button>
           </form>
         </CardContent>
@@ -90,6 +140,7 @@ const Login = () => {
             <button 
               onClick={() => setIsSignUp(!isSignUp)} 
               className="text-health-600 hover:text-health-700 font-medium"
+              type="button"
             >
               {isSignUp ? "Sign In" : "Sign Up"}
             </button>
