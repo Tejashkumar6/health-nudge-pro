@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import Header from "@/components/layout/Header";
 import HealthForm from "@/components/health/HealthForm";
@@ -7,8 +6,9 @@ import HealthRecommendation from "@/components/health/HealthRecommendation";
 import HealthGoals from "@/components/health/HealthGoals";
 import HealthTips from "@/components/health/HealthTips";
 import { HealthProvider } from "@/context/HealthContext";
-import { Heart, Sparkles, ArrowDown } from "lucide-react";
+import { Sparkles, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
+import Logo from "@/components/common/Logo";
 
 const Index = () => {
   useEffect(() => {
@@ -87,10 +87,7 @@ const Index = () => {
         <footer className="py-8 px-6 bg-white border-t border-gray-100">
           <div className="container mx-auto max-w-6xl">
             <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="flex items-center gap-2 mb-4 md:mb-0">
-                <Heart className="h-5 w-5 text-health-600 animate-pulse-slow" />
-                <span className="text-lg font-medium">HealthTrack</span>
-              </div>
+              <Logo size="sm" className="mb-4 md:mb-0" />
               
               <div className="text-sm text-gray-500">
                 Designed for your wellbeing. Track, improve, thrive.

@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Heart, Activity, Menu, X } from "lucide-react";
+import { Activity, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Logo from "@/components/common/Logo";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -33,14 +33,9 @@ const Header = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Link to="/">
-            <Heart className="h-6 w-6 text-health-600" />
-          </Link>
-          <Link to="/" className="text-xl font-medium">
-            HealthTrack
-          </Link>
-        </div>
+        <Link to="/">
+          <Logo size="md" />
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
